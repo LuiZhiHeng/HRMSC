@@ -9,11 +9,14 @@
     if(!$rs) echo "Some Error is occured!";
     elseif ($rs->num_rows > 0){
         $att = $rs->fetch_assoc();
-        if ($att['punchOutDateTime'] != NULL) echo '<div class="container">You have punched out!</div>';
-        elseif ($att['punchInDateTime'] != NULL) { // punched in, but no punch out yet
+        if ($att['punchInDateTime'] != NULL) {
+            if ($att['punchOutDateTime'] != NULL && $att['punchOutDateTime'] != "0000-00-00 00:00:00") { //punched out
+                swal("You have Punched Out!", "Last Punch Out: " . $att['punchOutDateTime'], "warning");
+                $outMsg = "Punch Out Again";
+            } else $outMsg = "Punch Out";
 ?>
         <div class="container d-flex justify-content-center">
-            <form class="row g-3 border border-secondary border-1 rounded-3 p-3 mt-1" method="POST" action="attendance.php" onsubmit="return confirms('Punch Out')">
+            <form class="row g-3 border border-secondary border-1 rounded-3 p-3 mt-1" method="POST" action="attendance.php" onsubmit="return confirms('<?= $outMsg ?>')">
                 <input type="hidden" name="emId" id="emId" value="<?= $uId ?>" hidden>
                 <input type="text" class="form-control" name="emName" id="emName" value="<?= echo_txt($att['employeeName']); ?>" readonly>
                 <input type="date" class="form-control" name="date" id="date" value="<?= echo_txt($date); ?>" readonly>

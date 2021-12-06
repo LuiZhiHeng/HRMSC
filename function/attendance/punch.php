@@ -7,10 +7,10 @@
 
         if(isset($_POST['punchIn'])){
             $sql = "INSERT INTO attendance VALUES (NULL, '$uId', '$date', '$datetimeNow', NULL);";
-            swal($sql, "Punch In", "Punched In for " . $dateNow, "");
+            swal_result($sql, "Punch In", "Punched In for " . $dateNow, "");
         } else if(isset($_POST['punchOut'])){
             $sql = "UPDATE attendance SET punchOutDateTime = '$datetimeNow' WHERE attendanceDate = '$dateNow' AND employeeId = '$uId'";
-            swal($sql, "Punch Out", "Punched Out for " . $dateNow, "");
+            swal_result($sql, "Punch Out", "Punched Out for " . $dateNow, "");
         }
     }
 ?>
