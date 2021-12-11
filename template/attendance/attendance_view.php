@@ -22,6 +22,7 @@
                     <th>Employee Name</th>
                     <th>Punch In</th>
                     <th>Punch Out</th>
+                    <th>Duration</th>
                 </tr>
             </thead>
             <tbody>
