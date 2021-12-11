@@ -54,7 +54,7 @@
         <div class="row g-3 mb-3 d-flex justify-content-center">
             <div class="col-md-12 col-lg-6">
                 <label for="file" class="form-label">File</label><br>
-                <input class="form-control" type="file" name="fileToUpload" accept="image/jpg, image/jpeg, image/png" id="file">
+                <input class="form-control" type="file" name="fileToUpload" accept="image/jpg, image/jpeg, image/png" id="file" required>
             </div>
         </div>
         <div class="row g-3 d-flex justify-content-center">
@@ -71,6 +71,11 @@
         
         
         <script>
+            document.getElementById("start").onchange = function () {
+                var input = document.getElementById("end");
+                input.min = this.value;
+            }
+
             function getLeaveLeft(id) {
                 var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function() {
