@@ -38,7 +38,6 @@
     $leaveNum = (!$rsLeave) ? 0 : $rsLeave->num_rows;
     $onLeave = 0;
     $arrLeave = [[]];
-    echo count($arrLeave);
     if($leaveNum > 0){
         for ($i=0; $i < $leaveNum; $i++) { 
             $dataLeave = $rsLeave->fetch_array(MYSQLI_NUM);
