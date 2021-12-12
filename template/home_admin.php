@@ -17,6 +17,44 @@
         }
     } else console("Fail to get Recruitment Data");
 
+    //get leave record
+    $nowDT1 = get_date_now() . " 00:00:00";
+    $nowDT2 = date("Y-m-") . (date("d")) . " 11:59:59";
+    // $nowDT1 = "2021-12-08 00:00:00"; #test purpose only
+    // $nowDT2 = "2021-12-08 11:59:59"; #test purpose only
+    $sql = "SELECT 
+                employee.employeeId,
+                employee.employeeName, 
+                leave_request.startLeaveDateTime, 
+                leave_request.endLeaveDateTime 
+            FROM leave_request
+            JOIN employee ON leave_request.employeeId = employee.employeeId
+            WHERE startLeaveDateTime >= '$nowDT1' AND endLeaveDateTime <= '$nowDT2'
+            OR startLeaveDateTime <= '$nowDT1' AND endLeaveDateTime >= '$nowDT1'
+            OR startLeaveDateTime <= '$nowDT2' AND endLeaveDateTime >= '$nowDT2'
+            OR startLeaveDateTime <= '$nowDT1' AND endLeaveDateTime >= '$nowDT2';
+    ";
+    $rsLeave = $conn->query($sql);
+    $leaveNum = (!$rsLeave) ? 0 : $rsLeave->num_rows;
+    $onLeave = 0;
+    $arrLeave = [[]];
+    echo count($arrLeave);
+    if($leaveNum > 0){
+        for ($i=0; $i < $leaveNum; $i++) { 
+            $dataLeave = $rsLeave->fetch_array(MYSQLI_NUM);
+            for ($j=0; $j < count($dataLeave); $j++) { 
+                $arrLeave[$i][$j] = $dataLeave[$j];
+            }
+
+            for ($j=0; $j < count($arrEmId); $j++) { 
+                if($arrEmId[$j] == $dataLeave[0]){
+                    $onLeave += 1;
+                    break;
+                }
+            }
+        }
+    }
+
     //get attendance today
     $inOT = $outOT = $in = $out = 0;
     $rs = $conn->query("SELECT * FROM attendance WHERE attendanceDate = '$dateNow'");
@@ -27,6 +65,12 @@
             $empId = $data['employeeId'];
             $outDT = $data['punchOutDateTime'];
             for ($j=0; $j < count($arrEmId); $j++) { 
+                if($onLeave > 0){
+                    for ($k=0; $k < count($arrLeave); $k++) { 
+                        if($arrLeave[$k][0] == $empId) $onLeave--;
+                    }
+                }
+
                 if($arrEmId[$j] == $empId){
                     $in++;
                     if($outDT != "0000-00-00 00:00:00" && $outDT != NULL) $out++;
@@ -38,6 +82,7 @@
             }
         }
     } else console("Fail to get Attendance Data");
+
 ?>
 <script src="asset/js/chart.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -51,11 +96,12 @@
     <?php } else { ?>
         ['notuse', 0],
     <?php } ?>
-        ['Absent', <?= (count($arrEmId) - $in) ?>],
+        ['Absent', <?= (count($arrEmId) - $in - $onLeave) ?>],
         ['Punched In', <?= $in - $out ?>],
         ['Punched Out', <?= $out ?>],
         ['OT Punched In', <?= $inOT - $outOT ?>],
-        ['OT Punched Out', <?= $outOT ?>]
+        ['OT Punched Out', <?= $outOT ?>],
+        ['Leave', <?= $onLeave ?>]
     ]);
 
     var options = {
@@ -68,7 +114,8 @@
             2: { color: '#ffc107' },
             3: { color: '#198754' },
             4: { color: '#fd7e14' },
-            5: { color: '#20c997' }
+            5: { color: '#20c997' },
+            6: { color: '#6c757d' }
         }
     };
 
@@ -119,32 +166,16 @@
                         <th>Until</th>
                     </tr>
 <?php
-    $nowDT1 = get_date_now() . " 00:00:00";
-    $nowDT2 = date("Y-m-") . (date("d")+1) . " 11:59:59";
-    $sql = "SELECT employee.employeeName, 
-                leave_request.startLeaveDateTime, 
-                leave_request.endLeaveDateTime 
-            FROM leave_request
-            JOIN employee ON leave_request.employeeId = employee.employeeId
-            WHERE startLeaveDateTime >= '$nowDT1' AND endLeaveDateTime <= '$nowDT2'
-            OR startLeaveDateTime <= '$nowDT1' AND endLeaveDateTime >= '$nowDT1'
-            OR startLeaveDateTime <= '$nowDT2' AND endLeaveDateTime >= '$nowDT2'
-            OR startLeaveDateTime <= '$nowDT1' AND endLeaveDateTime >= '$nowDT2'
-            ;
-    ";
-    $rs = $conn->query($sql);
-    if(!$rs) console("Fail to get Leave Data");
-    elseif($rs->num_rows >= 0) {
+    if($leaveNum >= 0) {
         echo "<tr>";
-        for ($i=0; $i < $rs->num_rows; $i++) { 
-            $data = $rs->fetch_array(MYSQLI_NUM);
-            for ($j=0; $j < count($data); $j++) { 
-                echo_td($data[$j]);
+        for ($i=0; $i < count($arrLeave); $i++) { 
+            for ($j=1; $j < count($arrLeave[$i]); $j++) { 
+                echo_td($arrLeave[$i][$j]);
             }
         }
-        if($rs->num_rows == 0) echo "<td colspan='3' class='text-center'>No Result...</td>";
+        if($leaveNum == 0) echo "<td colspan='3' class='text-center'>No Result...</td>";
         echo "</tr>";
-    } else console("Fail to get Leave Data");
+    }
 
 ?>
                 </table>
