@@ -2,7 +2,7 @@
     //get employee who work today
     $dateNow = get_date_now();
     $dayNow = date('w');
-    $dayNow += ($dayNow == 0) ? 7 : 1;
+    if($dayNow == 0) $dayNow += 7;
     $sql = "SELECT employee.employeeId FROM recruitment 
             JOIN employee ON employee.recruitmentId = recruitment.recruitmentId 
             WHERE employee.startWorkDate <= '$dateNow' AND recruitment.workDay LIKE '%$dayNow%'
