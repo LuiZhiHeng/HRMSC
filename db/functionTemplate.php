@@ -29,6 +29,17 @@ function alert($script){
 
 function swal($title, $content, $type){
     $swal = "swal(\"" . $title . "\", \"" . $content . "\", \"" . $type . "\");";
+    $_SESSION['swal'] = $swal;
+    $_SESSION['redirect'] = $_SERVER['PHP_SELF'];
+?>
+    <script>
+        window.location = "redirect.php";
+    </script>
+<?php
+    exit;
+}
+
+function rswal($swal){
     script($swal);
 }
 

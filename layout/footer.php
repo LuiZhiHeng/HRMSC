@@ -12,14 +12,18 @@
                 </footer>
             </div>
         </div>
-        <!-- BootStrap JS plugin -->
-        <!-- https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js -->
         <script src="asset/js/bs.js"></script>
         <script src="asset/js/side_nav.js"></script>
-        <!-- DataTables plugin-->
-        <!-- https://cdn.jsdelivr.net/npm/simple-datatables@latest -->
         <script src="asset/js/datatable.js" crossorigin="anonymous"></script>
         <script src="asset/js/dataTables.js"></script>
+<?php
+    //check swal
+    if(isset($_SESSION['swal'])){
+        $swal = $_SESSION['swal'];
+        unset($_SESSION['swal']);
+        rswal($swal);
+    }
+?>
     </body>
 </html>
 <?php
