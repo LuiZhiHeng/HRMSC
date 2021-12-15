@@ -30,7 +30,7 @@ function alert($script){
 function swal($title, $content, $type){
     $swal = "swal(\"" . $title . "\", \"" . $content . "\", \"" . $type . "\");";
     $_SESSION['swal'] = $swal;
-    $_SESSION['redirect'] = $_SERVER['PHP_SELF'];
+    $_SESSION['redirect'] = $_SERVER['HTTP_REFERER'];
 ?>
     <script>
         window.location = "redirect.php";
