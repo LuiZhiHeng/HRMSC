@@ -17,6 +17,6 @@
         $timeEnd = filterInput(($_POST['timeEnd']));
 
         $sql = "UPDATE recruitment SET position='$position', positionDetail='$detail', requirement='$requirement', salary='$salary', peopleLimit='$limit', workDay='$workDay', startJobTime='$timeStart', endJobTime='$timeEnd' WHERE recruitmentId='$reId'";
-        swal_result($sql, "Edit Recruitment", "Edit Recruitment Successfully", "\'' . $position . '\' is edited successfully", "");
+        swal_result($sql, "Edit Recruitment", "\'' . $position . '\' is edited successfully", "\'' . $position . '\' is fail to edit");
     }
 ?>
