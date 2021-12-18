@@ -11,7 +11,7 @@
         $att = $rs->fetch_assoc();
         if ($att['punchInDateTime'] != NULL) {
             if ($att['punchOutDateTime'] != NULL && $att['punchOutDateTime'] != "0000-00-00 00:00:00") { //punched out
-                swal("You have Punched Out!", "Last Punch Out: " . $att['punchOutDateTime'], "warning");
+                script('swal("You have Punched Out!", "Last Punch Out: ' . $att['punchOutDateTime'] . '", "warning")');
                 $outMsg = "Punch Out Again";
             } else $outMsg = "Punch Out";
 ?>
