@@ -12,7 +12,7 @@
             $data = $rsOld->fetch_array(MYSQLI_NUM);
             if($encOld == $data[0]) {
                 $sql = "UPDATE employee SET pwd='$encNew' WHERE employeeId = '$uId'";
-                swal($sql, "Change Password", "", "");
+                swal_result($sql, "Change Password", "", "");
             } else swal("Your Old Password is not correct!", "", "error");
         } else swal("Change Password Failed!", "Fail to change your password...", "error");
     }
