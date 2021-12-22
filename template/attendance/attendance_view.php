@@ -32,30 +32,103 @@
             </thead>
             <tbody>
 <?php
+    //get employee who work today
+    $arrAtt = [[]]; // 0-id 1-name 2-leaveYN 3-in 4-out
     $dateNow = get_date_now();
-    $sql = "SELECT 
-                attendance.attendanceId,
-                employee.employeeName, 
-                attendance.punchInDateTime,
-                attendance.punchOutDateTime
-            FROM attendance 
-            JOIN employee ON employee.employeeId = attendance.employeeId
-            WHERE attendanceDate = '$dateNow'
-            ORDER BY attendance.punchInDateTime DESC";
+    // $dateNow = "2021-12-13"; #test purpose only
+    $dayNow = date('w');
+    if($dayNow == 0) $dayNow += 7;
+    // $dayNow = 1; #test purpose only
+    $sql = "SELECT employee.employeeId, employee.employeeName FROM recruitment 
+            JOIN employee ON employee.recruitmentId = recruitment.recruitmentId 
+            WHERE employee.startWorkDate <= '$dateNow' AND recruitment.workDay LIKE '%$dayNow%'
+            AND (employee.endWorkDate = NULL OR employee.endWorkDate = '0000-00-00' OR employee.endWorkDate >= '$dateNow')
+            ";
     $rs = $conn->query($sql);
-    if($rs->num_rows > 0) {
-        for ($i=0; $i < $rs->num_rows; $i++) { 
-            $data = $rs->fetch_array(MYSQLI_NUM);
-            echo "<tr>";
-            echo_td($i+1);
-            for ($j=1; $j < count($data); $j++) { 
-                echo_td($data[$j]);
+    if(!$rs) console("Fail to get Recruitment Data");
+    elseif($rs->num_rows >= 0){
+        for ($i=0; $i < $rs->num_rows; $i++) {
+            $dataEmWork = $rs->fetch_array(MYSQLI_NUM);
+            $arrAtt[$i][0] = $dataEmWork[0];
+            $arrAtt[$i][1] = $dataEmWork[1];
+        }
+    }
+
+    //get leave record
+    $nowDT1 = $dateNow . " 00:00:00";
+    $nowDT2 = date("Y-m-") . (date("d")) . " 11:59:59";
+    // $nowDT2 = "2021-12-13 11:59:59"; #test purpose only
+    $sql = "SELECT employee.employeeId FROM leave_request
+            JOIN employee ON leave_request.employeeId = employee.employeeId
+            WHERE startLeaveDateTime >= '$nowDT1' AND endLeaveDateTime <= '$nowDT2'
+            OR startLeaveDateTime <= '$nowDT1' AND endLeaveDateTime >= '$nowDT1'
+            OR startLeaveDateTime <= '$nowDT2' AND endLeaveDateTime >= '$nowDT2'
+            OR startLeaveDateTime <= '$nowDT1' AND endLeaveDateTime >= '$nowDT2';
+    ";
+    $rsLeave = $conn->query($sql);
+    $leaveNum = (!$rsLeave) ? 0 : $rsLeave->num_rows;
+    if($leaveNum > 0){
+        for ($i=0; $i < $leaveNum; $i++) { 
+            $dataLeave = $rsLeave->fetch_array(MYSQLI_NUM);
+            for ($j=0; $j < count($arrAtt); $j++) { 
+                if(isset($arrAtt[$j][0]) && $arrAtt[$j][0] == $dataLeave[0]) {
+                    $arrAtt[$j][2] = 1; //on leave
+                }
             }
-            if($data[3] != NULL) {
-                $timeDif = strtotime($data[3]) - strtotime($data[2]) - 27000;
+        }
+    }
+
+    //get attendance today
+    $rs = $conn->query("SELECT attendance.*, employee.employeeName FROM attendance JOIN employee ON employee.employeeId = attendance.employeeId WHERE attendanceDate = '$dateNow'");
+    if(!$rs) console("Fail to get Attendance Data");
+    elseif($rs->num_rows >= 0){
+        for ($i=0; $i < $rs->num_rows; $i++) {
+            $data = $rs->fetch_array(MYSQLI_NUM);
+            $arrAttLen = count($arrAtt);
+            for ($j=0; $j < $arrAttLen; $j++) { 
+                if($arrAtt[$j][0] == $data[1]){
+                    $arrAtt[$j][3] = $data[3]; //inDT
+                    $arrAtt[$j][4] = $data[4]; //outDT
+                    if(!isset($arrAtt[$j][2])) $arrAtt[$j][2] = 0; //leaveYN
+                    break;
+                } elseif($j == $arrAttLen-1){
+                    $arrAtt[$arrAttLen][0] = $data[1]; //id
+                    $arrAtt[$arrAttLen][1] = $data[5]; //name
+                    $arrAtt[$arrAttLen][2] = 2;
+                    $arrAtt[$arrAttLen][3] = $data[3]; //inDt
+                    $arrAtt[$arrAttLen][4] = $data[4]; //outDT
+                }
+            }
+        }
+    }
+
+    //display
+    if(isset($arrAtt[0][0])){
+        for ($i=0; $i < count($arrAtt); $i++) { 
+            echo "<tr>";
+            
+            echo_td($i + 1); //num
+            echo_td($arrAtt[$i][1]); //name
+            if(!isset($arrAtt[$i][3])) echo "<td class='text-center'>-</td>"; //inDT
+            else echo_td($arrAtt[$i][3]);
+            if(!isset($arrAtt[$i][4])) echo "<td class='text-center'>-</td>"; //outDT
+            else echo_td($arrAtt[$i][4]);
+
+            //cal & echo duration
+            if(isset($arrAtt[$i][3]) && isset($arrAtt[$i][4])){
+                $timeDif = strtotime($arrAtt[$i][4]) - strtotime($arrAtt[$i][3]) - 27000;
                 $timeDif = date("H\h i\m s\s", $timeDif);
                 echo_td($timeDif);
-            }
+            } else echo "<td class='text-center'>-</td>";
+
+            //echo status
+            if(isset($arrAtt[$i][2]) && $arrAtt[$i][2] == 1) echo "<td class='text-center text-secondary fw-bold'>Leave</td>";
+            elseif(isset($arrAtt[$i][4]) && $arrAtt[$i][2] == 0) echo "<td class='text-center text-success fw-bold'>Punched Out</td>";
+            elseif(isset($arrAtt[$i][4]) && $arrAtt[$i][2] == 2) echo "<td class='text-center text-success fw-bold'>OT Punched Out</td>";
+            elseif(isset($arrAtt[$i][3]) && $arrAtt[$i][2] == 0) echo "<td class='text-center text-warning fw-bold'>Punched In</td>";
+            elseif(isset($arrAtt[$i][4]) && $arrAtt[$i][2] == 2) echo "<td class='text-center text-success fw-bold'>OT Punched In</td>";
+            else echo "<td class='text-center text-danger fw-bold'>Absent</td>";
+
             echo "</tr>";
         }
     }
