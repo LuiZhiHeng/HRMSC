@@ -59,7 +59,12 @@ function get_navbar($logged_user, $logged_user_type, $logged_user_id){
                         <?php } ?>
 
                         <!-- Attendance -->
-                        <?php if($logged_user_type == 1 || $logged_user_type == 2){ ?>
+                        <?php if($logged_user_type == 1){ ?>
+                            <a class="nav-link" href="attendance.php">
+                            <div class="sb-nav-link-icon"><i class="far fa-calendar-alt"></i></div>
+                                Attendance
+                            </a>
+                        <?php } elseif($logged_user_type == 2){ ?>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#attendance" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="far fa-calendar-alt"></i></div>
                                 Attendance
@@ -68,15 +73,10 @@ function get_navbar($logged_user, $logged_user_type, $logged_user_id){
                             <div class="collapse" id="attendance" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="attendance.php">Record</a>
-                            <?php if($logged_user_type == 1){ ?>
-                                    <a class="nav-link" href="attendance.php?qr=">QR Code</a>
-                            <?php } elseif($logged_user_type == 2){ ?>
                                     <a class="nav-link" href="attendance.php?punch=">Punch-In/Out</a>
-                            <?php } ?>
                                 </nav>
                             </div>
                         <?php } ?>
-
 
                         <!-- Recruitment -->
                         <?php if($logged_user_type == 1){ ?>
