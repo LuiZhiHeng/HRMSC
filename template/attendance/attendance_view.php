@@ -7,6 +7,10 @@
         <button type="button" class="btn btn-dark me-1 float-end" data-bs-toggle="modal" data-bs-target="#viewModal">
             Check Monthly Attendance
         </button>
+        <a href="attendance.php?qr=" class="btn btn-primary me-1 float-end">
+            <i class="fas fa-qrcode"></i>
+            QR Code
+        </a>
     </form>
 </div>
 <div class="card mb-4">
@@ -23,6 +27,7 @@
                     <th>Punch In</th>
                     <th>Punch Out</th>
                     <th>Duration</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
