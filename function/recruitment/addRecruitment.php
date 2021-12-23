@@ -57,7 +57,7 @@
             }
         }
         
-        if($rsTF) swal("Add Recruitment Successfully", "\'' . $position . '\' is added successfully", "success");
+        if($rsTF) swal("Add Recruitment Successfully", "\'" . $position . "\' is added successfully", "success");
         else swal("Add Recruitment Failed", " ", "error");
     }
 ?>

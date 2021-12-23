@@ -5,7 +5,7 @@
         $leaveTypeName = filterInput($_POST['leaveTypeName']);
 
         $sql = "SELECT leaveName FROM leave_type";
-        if(check_exist($leaveTypeName, $sql)) swal("Data Existed!", "The leave type \'' . $leaveTypeName . '\' is already exist!", "warning");
+        if(check_exist($leaveTypeName, $sql)) swal("Data Existed!", "The leave type \'" . $leaveTypeName . "\' is already exist!", "warning");
         else {
             $sql = "UPDATE leave_type SET leaveName = '$leaveTypeName' WHERE leaveTypeId = '$id'";
             swal_result($sql, "Edit Leave Type", "The leave type \'" . $leaveTypeNameOld . "\' has been changed to \'" . $leaveTypeName . "\'", "");
