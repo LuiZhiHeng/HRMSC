@@ -86,7 +86,7 @@
             $data = $rs->fetch_array(MYSQLI_NUM);
             $arrAttLen = count($arrAtt);
             for ($j=0; $j < $arrAttLen; $j++) { 
-                if($arrAtt[$j][0] == $data[1]){
+                if(isset($arrAtt[$j][0]) && $arrAtt[$j][0] == $data[1]){
                     $arrAtt[$j][3] = $data[3]; //inDT
                     $arrAtt[$j][4] = $data[4]; //outDT
                     if(!isset($arrAtt[$j][2])) $arrAtt[$j][2] = 0; //leaveYN
@@ -103,34 +103,35 @@
     }
 
     //display
-    if(isset($arrAtt[0][0])){
-        for ($i=0; $i < count($arrAtt); $i++) { 
-            echo "<tr>";
-            
-            echo_td($i + 1); //num
-            echo_td($arrAtt[$i][1]); //name
-            if(!isset($arrAtt[$i][3])) echo "<td class='text-center'>-</td>"; //inDT
-            else echo_td($arrAtt[$i][3]);
-            if(!isset($arrAtt[$i][4])) echo "<td class='text-center'>-</td>"; //outDT
-            else echo_td($arrAtt[$i][4]);
+    if(isset($arrAtt[0][0])) $numStart = 0;
+    elseif(isset($arrAtt[1][0])) $numStart = 1;
+    for ($i=$numStart; $i < count($arrAtt); $i++) { 
+        echo "<tr>";
+        
+        if($numStart == 0) echo_td($i+1); //num
+        elseif($numStart == 1) echo_td($i);
+        echo_td($arrAtt[$i][1]); //name
+        if(!isset($arrAtt[$i][3])) echo "<td class='text-center'>-</td>"; //inDT
+        else echo_td($arrAtt[$i][3]);
+        if(!isset($arrAtt[$i][4])) echo "<td class='text-center'>-</td>"; //outDT
+        else echo_td($arrAtt[$i][4]);
 
-            //cal & echo duration
-            if(isset($arrAtt[$i][3]) && isset($arrAtt[$i][4])){
-                $timeDif = strtotime($arrAtt[$i][4]) - strtotime($arrAtt[$i][3]) - 27000;
-                $timeDif = date("H\h i\m s\s", $timeDif);
-                echo_td($timeDif);
-            } else echo "<td class='text-center'>-</td>";
+        //cal & echo duration
+        if(isset($arrAtt[$i][3]) && isset($arrAtt[$i][4])){
+            $timeDif = strtotime($arrAtt[$i][4]) - strtotime($arrAtt[$i][3]) - 27000;
+            $timeDif = date("H\h i\m s\s", $timeDif);
+            echo_td($timeDif);
+        } else echo "<td class='text-center'>-</td>";
 
-            //echo status
-            if(isset($arrAtt[$i][2]) && $arrAtt[$i][2] == 1) echo "<td class='text-center text-secondary fw-bold'>Leave</td>";
-            elseif(isset($arrAtt[$i][4]) && $arrAtt[$i][2] == 0) echo "<td class='text-center text-success fw-bold'>Punched Out</td>";
-            elseif(isset($arrAtt[$i][4]) && $arrAtt[$i][2] == 2) echo "<td class='text-center text-success fw-bold'>OT Punched Out</td>";
-            elseif(isset($arrAtt[$i][3]) && $arrAtt[$i][2] == 0) echo "<td class='text-center text-warning fw-bold'>Punched In</td>";
-            elseif(isset($arrAtt[$i][4]) && $arrAtt[$i][2] == 2) echo "<td class='text-center text-success fw-bold'>OT Punched In</td>";
-            else echo "<td class='text-center text-danger fw-bold'>Absent</td>";
+        //echo status
+        if(isset($arrAtt[$i][2]) && $arrAtt[$i][2] == 1) echo "<td class='text-center text-secondary fw-bold'>Leave</td>";
+        elseif(isset($arrAtt[$i][4]) && $arrAtt[$i][2] == 0) echo "<td class='text-center text-success fw-bold'>Punched Out</td>";
+        elseif(isset($arrAtt[$i][4]) && $arrAtt[$i][2] == 2) echo "<td class='text-center text-success fw-bold'>OT Punched Out</td>";
+        elseif(isset($arrAtt[$i][3]) && $arrAtt[$i][2] == 0) echo "<td class='text-center text-warning fw-bold'>Punched In</td>";
+        elseif(isset($arrAtt[$i][4]) && $arrAtt[$i][2] == 2) echo "<td class='text-center text-success fw-bold'>OT Punched In</td>";
+        else echo "<td class='text-center text-danger fw-bold'>Absent</td>";
 
-            echo "</tr>";
-        }
+        echo "</tr>";
     }
 ?>
             </tbody>
