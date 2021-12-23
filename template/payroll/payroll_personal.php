@@ -32,7 +32,8 @@
                 payroll.netPay
             FROM payroll
             JOIN employee ON employee.employeeId = payroll.employeeId
-            WHERE payroll.employeeId = '$uId';
+            WHERE payroll.employeeId = '$uId'
+            ORDER BY payroll.year DESC, payroll.month DESC;
             ";
     $rs = $conn->query($sql);
     if($rs->num_rows > 0) {
