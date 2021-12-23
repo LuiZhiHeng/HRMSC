@@ -62,8 +62,8 @@
                 <form id="modalForm" action="setting.php?holiday=" method="POST" onsubmit="return confirms('Add Holiday')">
                     <label for="holidayName">Public Holiday:</label>
                     <input type="hidden" id="id" name="id" hidden>
-                    <input type="date" id="date" class="form-control mb-2" name="holidayDate" required>
-                    <input type="text" id="data" class="form-control mb-2" name="holidayName" required>
+                    <input type="text" id="date" class="form-control mb-2" name="holidayName" required>
+                    <input type="date" id="data" class="form-control mb-2" name="holidayDate" required>
                     <input type="submit" id="bttn" class="btn btn-danger form-control" name="add" value="Add Holiday">
                 </form>
             </div>
