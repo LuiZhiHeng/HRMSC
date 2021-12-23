@@ -6,6 +6,13 @@ if(isset($_GET['id'])){
     if($reName){
         set_h1("Edit Recruitment <small>(" . $reName[0] . ")    </small>");
 ?>
+<div class="row mb-2 form-inline">
+    <form>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#addModal">
+            <i class="fas fa-plus-circle"></i> Add
+        </button>
+    </form>
+</div>
 <div class="card mb-4">
     <div class="card-header">
         <i class="fas fa-table me-1"></i>
@@ -54,13 +61,6 @@ if(isset($_GET['id'])){
 ?>
             </tbody>
         </table>
-        <div class="row mt-2 text-end form-inline">
-            <form>
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#addModal">
-                    <i class="fas fa-plus-circle"></i> Add
-                </button>
-            </form>
-        </div>
     </div>
 </div>
 
