@@ -1,6 +1,6 @@
 <div class="row form-inline mb-2">
     <form action="claim.php" method="GET">
-        <button type="submit" class="btn btn-dark" name="history">View History</button>
+        <button type="submit" class="btn btn-dark" name="view">View Record</button>
         <button type="submit" class="btn btn-danger" name="apply">Apply Claim</button>
     </form>
 </div>
