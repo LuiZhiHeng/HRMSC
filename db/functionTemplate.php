@@ -90,22 +90,4 @@ function check_upload_valid($dir){
         else return "Upload File Failed";
     } else return "Failed to Upload File";
 }
-
-
-// Employee
-function get_employee($column, $columnSelected, $dataSelected){
-    global $conn;
-    $sql = "SELECT " . $column . " FROM employee";
-    if($columnSelected != NULL && $dataSelected != NULL) $sql .= " WHERE " . $columnSelected . " = " . $dataSelected . ";";
-    $rs = $conn->query($sql);
-    $length = $rs->num_rows;
-    if($length > 0){
-        for ($i=0; $i < $length; $i++) { 
-            $data = $rs->fetch_assoc();
-            echo_td($data);
-        }
-    } else if ($length == 0){
-
-    } else die("Couldn't get employee data...");
-}
 ?>
