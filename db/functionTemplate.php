@@ -15,10 +15,6 @@ function console($content){
     script($console_log);
 }
 
-function log_db(){
-
-}
-
 function script($script){
     echo "<script>" . $script . "</script>";
 }
@@ -48,9 +44,6 @@ function swal_result($sql, $crud_data, $success_content, $fail_content){
     if($conn->query($sql)) swal($crud_data . " Successfully", $success_content, "success");
     else swal($crud_data . " Failed", $fail_content, "error");
 }
-
-
-
 
 function check_exist($name, $sql){
     global $conn;
