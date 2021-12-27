@@ -49,8 +49,10 @@
             echo_tag("tr", 0);
             echo_td($i + 1);
             for ($j=0; $j < count($data); $j++) {
-                if($j == 7) echo '<td><a type="submit" class="" data-bs-toggle="modal" data-bs-target="#fileModalFile" data-bs-file="'. filterOutput($data[$j]) .'">' . filterOutput($data[$j]) . '</a></td>';
-                elseif($j > 1) echo_td($data[$j]);
+                if($j == 7){
+                    $tempFileName = isset($data[$j]) ? "view" : "";
+                    echo '<td><a type="submit" class="" data-bs-toggle="modal" data-bs-target="#fileModalFile" data-bs-file="'. filterOutput($data[$j]) .'">' . $tempFileName . '</a></td>';
+                } elseif($j > 1) echo_td($data[$j]);
             }
 ?>
                     <td class="btn-group">

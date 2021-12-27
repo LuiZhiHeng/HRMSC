@@ -48,8 +48,10 @@
             $data = $rs->fetch_array(MYSQLI_NUM);
             echo "<tr>";
             for ($j=1; $j < count($data); $j++) {
-                if($j == 5) echo '<td><a type="submit"  class="" data-bs-toggle="modal" data-bs-target="#fileModalFile" data-bs-file="'. $data[$j] .'">' . $data[$j] . '</a></td>';
-                else echo_td($data[$j]);
+                if($j == 5){
+                    $tempFileName = isset($data[$j]) ? "view" : "";
+                    echo '<td><a type="submit" class="" data-bs-toggle="modal" data-bs-target="#fileModalFile" data-bs-file="'. filterOutput($data[$j]) .'">' . $tempFileName . '</a></td>';
+                } else echo_td($data[$j]);
             }
             echo "</tr>";
         }
