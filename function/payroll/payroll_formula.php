@@ -423,18 +423,6 @@
         return manage_rs($rs, "holiday");
     }
 
-// leave item (total leave offered for dif type)
-    function get_leave_item(){
-        global $conn;
-        $sql = "SELECT 
-                *
-                FROM leave_item
-                JOIN leave_type ON leave_type.leaveTypeId = leave_item.leaveTypeId
-                ";
-        $rs = $conn->query($sql);
-        return manage_rs($rs, "leave request");
-    }
-
 // count age
     function get_age($birth){
         return get_year_now() - date("Y", strtotime($birth));
