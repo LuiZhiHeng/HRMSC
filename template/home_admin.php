@@ -136,7 +136,9 @@
         <div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-chart-pie me-1"></i>
-                Attendance Today (<?= display_date(); ?>)
+                <a class="text-decoration-none text-dark" href="attendance.php">
+                    Attendance Today (<?= display_date(); ?>)
+                </a>
             </div>
             <div class="card-body">
                 <div class="chartjs-size-monitor">
@@ -155,7 +157,9 @@
         <div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-table me-1"></i>
-                Employee On Leave
+                <a class="text-decoration-none text-dark" href="leave.php">
+                    Employee On Leave
+                </a>
             </div>
             <div class="card-body">
                 <table class="table table-bordered table-striped">
