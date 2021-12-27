@@ -34,6 +34,7 @@
 <?php
     //get employee who work today
     $arrAtt = [[]]; // 0-id 1-name 2-leaveYN 3-in 4-out
+    $arrAttLen = 0;
     $dateNow = get_date_now();
     // $dateNow = "2021-12-13"; #test purpose only
     $dayNow = date('w');
@@ -51,6 +52,7 @@
             $dataEmWork = $rs->fetch_array(MYSQLI_NUM);
             $arrAtt[$i][0] = $dataEmWork[0];
             $arrAtt[$i][1] = $dataEmWork[1];
+            $arrAttLen++;
         }
     }
 
@@ -70,7 +72,7 @@
     if($leaveNum > 0){
         for ($i=0; $i < $leaveNum; $i++) { 
             $dataLeave = $rsLeave->fetch_array(MYSQLI_NUM);
-            for ($j=0; $j < count($arrAtt); $j++) { 
+            for ($j=0; $j < $arrAttLen; $j++) { 
                 if(isset($arrAtt[$j][0]) && $arrAtt[$j][0] == $dataLeave[0]) {
                     $arrAtt[$j][2] = 1; //on leave
                 }
@@ -84,28 +86,26 @@
     elseif($rs->num_rows >= 0){
         for ($i=0; $i < $rs->num_rows; $i++) {
             $data = $rs->fetch_array(MYSQLI_NUM);
-            $arrAttLen = count($arrAtt);
             for ($j=0; $j < $arrAttLen; $j++) { 
                 if(isset($arrAtt[$j][0]) && $arrAtt[$j][0] == $data[1]){
                     $arrAtt[$j][3] = $data[3]; //inDT
                     $arrAtt[$j][4] = $data[4]; //outDT
                     if(!isset($arrAtt[$j][2])) $arrAtt[$j][2] = 0; //leaveYN
+                    $arrAttLen++;
                     break;
-                } elseif($j == $arrAttLen-1){
+                } elseif($j == $arrAttLen-1){ //ot
                     $arrAtt[$arrAttLen][0] = $data[1]; //id
                     $arrAtt[$arrAttLen][1] = $data[5]; //name
                     $arrAtt[$arrAttLen][2] = 2;
                     $arrAtt[$arrAttLen][3] = $data[3]; //inDt
-                    $arrAtt[$arrAttLen][4] = $data[4]; //outDT
+                    $arrAtt[$arrAttLen++][4] = $data[4]; //outDT
                 }
             }
         }
     }
 
     //display
-    if(isset($arrAtt[0][0])) $numStart = 0;
-    elseif(isset($arrAtt[1][0])) $numStart = 1;
-    for ($i=$numStart; $i < count($arrAtt); $i++) { 
+    for ($i=0; $i < $arrAttLen; $i++) { 
         echo "<tr>";
         
         if($numStart == 0) echo_td($i+1); //num
