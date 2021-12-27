@@ -1,6 +1,8 @@
+-- create db hrmsc
     CREATE DATABASE hrmsc;
 
--- Data Type for Reference
+
+-- status type
     CREATE TABLE status_type (
         statusTypeId TINYINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         statusName VARCHAR(255) NOT NULL
@@ -10,11 +12,12 @@
             (NULL, 'Approved'),
             (NULL, 'Rejected'),
             (NULL, 'Pending'),
-
             (NULL, 'Cancelled'),
             (NULL, 'Prepared'),
             (NULL, 'Taken');
 
+
+--  state type
     CREATE TABLE state_type (
         stateTypeId TINYINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         stateName VARCHAR(255) NOT NULL
@@ -35,6 +38,8 @@
             (NULL, "Selangor"),
             (NULL, "Terengganu");
 
+
+-- allowance type
     CREATE TABLE allowance_type (
         allowanceTypeId TINYINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         allowanceName VARCHAR(255) NOT NULL
@@ -43,8 +48,10 @@
         INSERT INTO allowance_type VALUES
             (NULL, "Transportation"),
             (NULL, "Medical"),
-            (NULL, "Car");
+            (NULL, "Phone");
 
+
+-- claim type
     CREATE TABLE claim_type (
         claimTypeId TINYINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         claimName VARCHAR(255) NOT NULL
@@ -54,6 +61,8 @@
             (NULL, "Other"),
             (NULL, "Transportation");
 
+
+-- leave type
     CREATE TABLE leave_type (
         leaveTypeId TINYINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         leaveName VARCHAR(255) NOT NULL
@@ -62,25 +71,52 @@
         INSERT INTO leave_type VALUES
             (NULL, "Sick"),
             (NULL, "Annual"),
-            (NULL, "Matternity");
+            (NULL, "Matternity"),
+            (NULL, "Personal");
 
+
+-- payroll item type
     CREATE TABLE payroll_item_type (
         payrollItemTypeId TINYINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         payrollItemTypeName VARCHAR(255) NOT NULL
     );
 
+        INSERT INTO payroll_item_type VALUES
+            (NULL, 'EPF'),
+            (NULL, 'SOCSO'),
+            (NULL, 'EIS');
+
+
+-- overtime day type
     CREATE TABLE overtime_day_type (
         dayTypeId TINYINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         dayTypeName VARCHAR(255) NOT NULL
     );
 
--- Data Table
+        INSERT INTO overtime_day_type VALUES
+            (NULL, 'Normal Day'),
+            (NULL, 'Rest Day'),
+            (NULL, 'Public Holiday Day');
+
+
+-- holiday
     CREATE TABLE holiday (
         holidayId INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-        holidayDate date NOT NULL,
-        holidayName VARCHAR(255) NOT NULL
+        holidayName VARCHAR(255) NOT NULL,
+        holidayDate date NOT NULL
     );
 
+        INSERT INTO holiday VALUES
+            (NULL, 'Christmas Day', '2021-12-25'),
+            (NULL, 'Malaysia Independence Day', '2021-09-16'),
+            (NULL, 'Prophet Birthday', '2021-10-19'),
+            (NULL, 'Malaysia Day', '2021-08-31'),
+            (NULL, 'Christmas Day', '2022-12-25'),
+            (NULL, 'Malaysia Independence Day', '2022-09-16'),
+            (NULL, 'Malaysia Day', '2022-08-31');
+
+
+-- leave item
     CREATE TABLE leave_item (
         leaveItemId INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         leaveTypeId TINYINT,
@@ -101,6 +137,7 @@
             (NULL, 3, 0, 60, "1995-01-01");
             
 
+-- payroll item
     CREATE TABLE payroll_item (
         payrollItemId INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         payrollItemTypeId TINYINT,
@@ -111,6 +148,18 @@
         payrollItemStartFrom date NOT NULL
     );
 
+        INSERT INTO payroll_item VALUES
+            (NULL, 1, 0, 0, '0.1100', '0.1300', '1955-01-01'),
+            (NULL, 2, 0, 60, '0.0125', '0.0000', '1955-01-01'),
+            (NULL, 2, 0, 0, '0.0175', '0.0050', '1955-01-01'),
+            (NULL, 3, 4000, 0, '7.9000', '7.9000', '1955-01-01'),
+            (NULL, 3, 3000, 0, '5.9000', '5.9000', '1955-01-01'),
+            (NULL, 3, 2000, 0, '3.9000', '3.9000', '1955-01-01'),
+            (NULL, 3, 1000, 0, '1.9000', '1.9000', '1955-01-01'),
+            (NULL, 3, 0, 0, '0.0000', '0.0000', '1955-01-01');
+
+
+-- overtime payrate
     CREATE TABLE overtime_payrate (
         overtimePayrateId INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         dayTypeId TINYINT,
@@ -121,7 +170,48 @@
         FOREIGN KEY (dayTypeId) REFERENCES overtime_day_type(dayTypeId)
     );
 
--- Recruitment Data
+        INSERT INTO overtime_payrate VALUES
+            (NULL, 1, '8.00', '1.50', '1955-01-01'),
+            (NULL, 1, '0.00', '1.00', '1955-01-01'),
+            (NULL, 2, '8.00', '2.00', '1955-01-01'),
+            (NULL, 2, '4.00', '1.00', '1955-01-01'),
+            (NULL, 2, '0.00', '0.50', '1955-01-01'),
+            (NULL, 3, '8.00', '3.00', '1955-01-01'),
+            (NULL, 3, '0.00', '2.00', '1955-01-01');
+
+
+-- permission
+    CREATE TABLE permission (
+            permissionId INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+            name VARCHAR(255) NOT NULL,
+            permissionLevel TINYINT NOT NULL
+        );
+
+        INSERT INTO permission VALUES
+            (NULL, "allowance", 1),
+            (NULL, "claim_type", 1),
+            (NULL, "holiday", 1),
+            (NULL, "leave_type", 1),
+            (NULL, "overtime_type", 1),
+            (NULL, "payroll_type", 1),
+            (NULL, "state", 1),
+            (NULL, "status", 1);
+
+
+-- Admin & Staff
+    CREATE TABLE admin (
+        adminId TINYINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        adminEmail VARCHAR(255) NOT NULL,
+        pwd VARCHAR(255) NOT NULL,
+        adminLevel TINYINT NOT NULL
+    );
+
+    INSERT INTO admin VALUES 
+        (NULL, "admin@admin.com", "d033e22ae348aeb5660fc2140aec35850c4da997", 1),
+        (NULL, 'staff@hrmsc.com', '6ccb4b7c39a6e77f76ecfa935a855c6c46ad5611', 2);
+    
+
+-- Recruitment
     CREATE TABLE recruitment (
         recruitmentId INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         position VARCHAR(255) NOT NULL,
@@ -144,7 +234,8 @@
         FOREIGN KEY (allowanceTypeId) REFERENCES allowance_type(allowanceTypeId)
     );
 
--- Employee Data
+
+-- Employee
     CREATE TABLE employee (
         employeeId INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         employeeName VARCHAR(255) NOT NULL,
@@ -174,17 +265,6 @@
         FOREIGN KEY (recruitmentId) REFERENCES recruitment(recruitmentId)
     );
 
--- Admin Data
--- admin@admin.com admin
-    CREATE TABLE admin (
-        adminId TINYINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-        adminEmail VARCHAR(255) NOT NULL,
-        pwd VARCHAR(255) NOT NULL,
-        adminLevel TINYINT NOT NULL
-    );
-
-    INSERT INTO admin VALUES (1, "admin@admin.com", "d033e22ae348aeb5660fc2140aec35850c4da997", 1);
-
 
 -- Attendance
     CREATE TABLE attendance (
@@ -197,18 +277,8 @@
         FOREIGN KEY (employeeId) REFERENCES employee(employeeId)
     );
 
-    INSERT INTO attendance VALUES
-        (NULL, 1, "2021-08-01", "2021-08-01 09:00:00", "2021-08-01 17:00:00"),
-        (NULL, 1, "2021-08-07", "2021-08-07 09:00:00", "2021-08-07 17:00:00"),
-        (NULL, 1, "2021-08-08", "2021-08-08 09:00:00", "2021-08-08 17:00:00"),
-        (NULL, 1, "2021-08-14", "2021-08-14 09:00:00", "2021-08-14 17:00:00"),
-        (NULL, 1, "2021-08-15", "2021-08-15 09:00:00", "2021-08-15 17:00:00"),
-        (NULL, 1, "2021-08-21", "2021-08-21 09:00:00", "2021-08-21 17:00:00"),
-        (NULL, 1, "2021-08-22", "2021-08-22 09:00:00", "2021-08-22 17:00:00"),
-        (NULL, 1, "2021-08-28", "2021-08-28 09:00:00", "2021-08-28 17:00:00"),
-        (NULL, 1, "2021-08-29", "2021-08-29 09:00:00", "2021-08-29 17:00:00");
 
--- Claim
+-- Claim Request
     CREATE TABLE claim_request (
         claimId INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         employeeId INT,
@@ -227,7 +297,8 @@
         FOREIGN KEY (claimStatus) REFERENCES status_type(statusTypeId)
     );
 
--- Leave
+
+-- Leave Request
     CREATE TABLE leave_request (
         leaveId INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         employeeId INT,
@@ -247,6 +318,7 @@
         FOREIGN KEY (leaveStatus) REFERENCES status_type(statusTypeId)
     );
 
+
 -- Payroll
     CREATE TABLE payroll (
         payrollId INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -261,20 +333,3 @@
         FOREIGN KEY (employeeId) REFERENCES employee(employeeId)
     );
 
--- permission
-    CREATE TABLE permission (
-        permissionId INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-        name VARCHAR(255) NOT NULL,
-        permissionLevel TINYINT NOT NULL
-    );
-
-    INSERT INTO permission VALUES
-        (NULL, "allowance", 1),
-        (NULL, "claim_type", 1),
-        (NULL, "holiday", 1),
-        (NULL, "leave_type", 1),
-        (NULL, "overtime_type", 1),
-        (NULL, "payroll_type", 1),
-        (NULL, "state", 1),
-        (NULL, "status", 1);
-        
