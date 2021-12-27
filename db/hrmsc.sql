@@ -190,7 +190,7 @@
         INSERT INTO permission VALUES
             (NULL, "allowance", 1),
             (NULL, "claim_type", 1),
-            (NULL, "holiday", 1),
+            (NULL, "holiday", 2),
             (NULL, "leave_type", 1),
             (NULL, "overtime_type", 1),
             (NULL, "payroll_type", 1),
