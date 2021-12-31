@@ -207,7 +207,7 @@
     );
 
     INSERT INTO admin VALUES 
-        (NULL, "admin@admin.com", "d033e22ae348aeb5660fc2140aec35850c4da997", 1),
+        (NULL, "admin@hrmsc.com", "d033e22ae348aeb5660fc2140aec35850c4da997", 1),
         (NULL, 'staff@hrmsc.com', '6ccb4b7c39a6e77f76ecfa935a855c6c46ad5611', 2);
     
 
