@@ -5,9 +5,8 @@
     $monthSelected = (int) $_REQUEST["m"];
     $yearSelected = (int) $_REQUEST["y"];
     if($monthSelected < 1 || $monthSelected > 12) die("Invalid Month");
-    elseif($monthSelected > get_month_now()) die("No record yet..");
     if($yearSelected < 1900) die("Invalid Year");
-    elseif($yearSelected > get_year_now()) die("No record yet...");
+    elseif($yearSelected >= get_year_now() && $monthSelected > get_month_now()) die("No record yet...");
 
 
     //get work day
