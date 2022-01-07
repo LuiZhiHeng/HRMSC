@@ -50,7 +50,7 @@
             echo "<tr>";
             echo_td($i + 1);
             for ($j=1; $j < count($claim)-1; $j++) { 
-                if($j == 4) echo '<td><a type="submit"  class="" data-bs-toggle="modal" data-bs-target="#fileModal" data-bs-file="'. $claim[$j] .'">' . $claim[$j] . '</a></td>';
+                if($j == 4) echo '<td><a type="submit"  class="" data-bs-toggle="modal" data-bs-target="#fileModal" data-bs-file="'. $claim[$j] .'">view</a></td>';
                 else echo_td($claim[$j]);
             }
                 if($claim[9] == 3){// claim is pending

@@ -47,7 +47,7 @@
             $claim = $rs->fetch_array(MYSQLI_NUM);
             echo "<tr>";
             for ($j=1; $j < count($claim)-1; $j++) { 
-                if($j == 4) echo '<td><a type="submit"  class="" data-bs-toggle="modal" data-bs-target="#fileModal" data-bs-file="'. $claim[$j] .'">' . $claim[$j] . '</a></td>';
+                if($j == 4) echo '<td><a type="submit"  class="" data-bs-toggle="modal" data-bs-target="#fileModal" data-bs-file="'. $claim[$j] .'">view</a></td>';
                 else echo "<td>" . $claim[$j] . "</td>";
             }
             echo "</tr>";
