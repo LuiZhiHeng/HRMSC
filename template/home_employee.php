@@ -3,9 +3,9 @@
         set_h1("Leave Request"); 
         $uId = get_logged_user_id();
         $today = get_date_now();
-        show_request("Approved", "leave.php", "<i class='fas fa-business-time'></i>", "success", "SELECT count(*) FROM leave_request WHERE leaveStatus=1 AND employeeId='$uId' AND endLeaveDateTime>='$today'");
+        show_request("Approved", "leave.php", "<i class='fas fa-business-time'></i>", "success", "SELECT count(*) FROM leave_request WHERE leaveStatus=1 AND employeeId='$uId'");
         show_request("Pending", "leave.php", "<i class='fas fa-business-time'></i>", "warning", "SELECT count(*) FROM leave_request WHERE leaveStatus=3 AND employeeId='$uId'");
-        show_request("Rejected", "leave.php", "<i class='fas fa-business-time'></i>", "danger", "SELECT count(*) FROM leave_request WHERE leaveStatus=2 AND employeeId='$uId' AND endLeaveDateTime<='$today'");
+        show_request("Rejected", "leave.php", "<i class='fas fa-business-time'></i>", "danger", "SELECT count(*) FROM leave_request WHERE leaveStatus=2 AND employeeId='$uId'");
     ?>
 </div>
 <div class="row">
