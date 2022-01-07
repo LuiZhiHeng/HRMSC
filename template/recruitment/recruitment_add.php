@@ -89,7 +89,7 @@
                             '<label for="allowanceAmount' + countAllowNum + '" class="form-label">Allowance Amount</label>' +
                             '<input type="number" class="form-control" name="allowanceAmount' + countAllowNum + '" id="allowanceAmount' + countAllowNum + '" min="0" required>' +
                         '</div>' +
-                        '<div class="col-lg-1 col-sm-1 text-end">' +
+                        '<div class="col-lg-1 col-sm-2 text-end">' +
                             '<label class="form-label text-light">...</label>' +
                             '<button onclick="deleteAllow(\'' + mId + '\')" type="button" class="btn btn-dark form-control"><i class="fas fa-times"></i></button>' +
                         '</div>' +
