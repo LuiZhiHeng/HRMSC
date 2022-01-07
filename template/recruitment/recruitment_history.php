@@ -46,21 +46,20 @@
             if($data[5] >= 1){
                 echo "<tr>";
                 echo_td(++$countNum);
-                for ($j=0; $j < count($data); $j++) {
-                    if($j == 5) echo_td($numPeopleJobTaken . "/" . $data[$j]);
-                    elseif($j == 6){
-                        $tempWorkDay = str_split($data[$j]);
-                        echo "<td>";
-                        for ($wd=0; $wd < count($tempWorkDay); $wd++) { 
-                            echo_txt($tempWorkDay[$wd]);
-                            if($wd != count($tempWorkDay)-1) echo ", ";
-                        }
-                        echo "</td>";
-                    } elseif($j == 7) echo "<td>" . filterOutput($data[$j]) . " - ";
-                    elseif($j == 8) echo $data[$j] . "</td>";
-                    elseif($j == 9) echo_td("RM " . $data[$j]);
-                    elseif($j != 1) echo_td($data[$j]);
+                echo_td($data[0]);
+                echo_td_pre($data[2]);
+                echo_td_pre($data[3]);
+                echo_td_pre($data[4]);
+                echo_td($numPeopleJobTaken . "/" . $data[5]);
+                $tempWorkDay = str_split($data[6]);
+                echo "<td>";
+                for ($wd=0; $wd < count($tempWorkDay); $wd++) { 
+                    echo $tempWorkDay[$wd];
+                    if($wd != count($tempWorkDay)-1) echo ", ";
                 }
+                echo "</td>";
+                echo_td_pre($data[7] . " - " . $data[8]);
+                echo_td("RM " . $data[9]);
 
                 $sqlAllow = "SELECT * FROM allowance JOIN allowance_type ON allowance_type.allowanceTypeId = allowance.allowanceTypeId WHERE allowance.recruitmentId = '$data[1]'";
                 $rsAllow = $conn->query($sqlAllow);
@@ -76,7 +75,7 @@
                         $allowName .= ", ";
                         $allowAmount .= ", ";
                     } else {
-                        echo_td($allowName);
+                        echo_td_pre($allowName);
                         echo_td($allowAmount);
                     }
                 }
