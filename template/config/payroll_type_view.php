@@ -1,3 +1,10 @@
+<div class="row mb-2 form-inline">
+    <form>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#fileModal" data-bs-id="" data-bs-data="">
+            <i class="fas fa-plus-circle"></i> Add
+        </button>
+    </form>
+</div>
 <div class="card mb-4">
     <div class="card-header">
         <i class="fas fa-table me-1"></i>
@@ -46,13 +53,6 @@
 ?>
             </tbody>
         </table>
-        <div class="row mt-2 text-end form-inline">
-            <form>
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#fileModal" data-bs-id="" data-bs-data="">
-                    <i class="fas fa-plus-circle"></i> Add
-                </button>
-            </form>
-        </div>
     </div>
 </div>
 
