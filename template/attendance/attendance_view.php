@@ -107,9 +107,7 @@
     //display
     for ($i=0; $i < $arrAttLen; $i++) { 
         echo "<tr>";
-        
-        if($numStart == 0) echo_td($i+1); //num
-        elseif($numStart == 1) echo_td($i);
+        echo_td($i+1);
         echo_td($arrAtt[$i][1]); //name
         if(!isset($arrAtt[$i][3])) echo "<td class='text-center'>-</td>"; //inDT
         else echo_td($arrAtt[$i][3]);
