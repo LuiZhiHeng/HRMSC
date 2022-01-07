@@ -52,22 +52,20 @@
             $numPeopleJobTaken = $rsE->num_rows;
             if($numPeopleJobTaken < $data[4]){
                 echo "<tr>";
-                for ($j=0; $j < count($data); $j++) {
-                    if($j == 0) echo_td(++$countNum);
-                    elseif($j == 4) echo_td($numPeopleJobTaken . "/" . $data[4]);
-                    elseif($j == 5){
-                        $tempWorkDay = str_split($data[5]);
-                        echo "<td>";
-                        for ($wd=0; $wd < count($tempWorkDay); $wd++) { 
-                            echo $tempWorkDay[$wd];
-                            if($wd != count($tempWorkDay)-1) echo ", ";
-                        }
-                        echo "</td>";
-                    } elseif($j == 6) echo "<td>" . filterOutput($data[6]) . " - ";
-                    elseif($j == 7) echo filterOutput($data[7]) . "</td>";
-                    elseif($j == 8) echo_td("RM " . $data[8]);
-                    else echo_td($data[$j]);
+                echo_td(++$countNum);
+                echo_td_pre($data[1]);
+                echo_td_pre($data[2]);
+                echo_td_pre($data[3]);
+                echo_td($numPeopleJobTaken . "/" . $data[4]);
+                $tempWorkDay = str_split($data[5]);
+                echo "<td>";
+                for ($wd=0; $wd < count($tempWorkDay); $wd++) { 
+                    echo $tempWorkDay[$wd];
+                    if($wd != count($tempWorkDay)-1) echo ", ";
                 }
+                echo "</td>";
+                echo_td_pre($data[6] . " - " . $data[7]);
+                echo_td("RM " . $data[8]);
 
                 $sqlAllow = "SELECT * FROM allowance JOIN allowance_type ON allowance_type.allowanceTypeId = allowance.allowanceTypeId WHERE allowance.recruitmentId = '$data[0]'";
                 $rsAllow = $conn->query($sqlAllow);
@@ -83,7 +81,7 @@
                         $allowName .= ", ";
                         $allowAmount .= ", ";
                     } else {
-                        echo_td($allowName);
+                        echo_td_pre($allowName);
                         echo_td($allowAmount);
                     }
                 }
@@ -91,8 +89,8 @@
             <td>
                 <form action="recruitment.php" method="GET">
                     <input type="hidden" name="id" value="<?= $data[0] ?>" hidden>
-                    <button class="btn btn-success form-control mb-1" type="submit" name="edit">Edit</button>
-                    <button class="btn btn-warning form-control mb-1" type="submit" name="editAllowance">Edit Allowance</button>
+                    <button class="btn btn-success form-control mb-1" type="submit" name="edit"><i class="fas fa-edit"></i></button>
+                    <button class="btn btn-warning form-control mb-1 text-white" type="submit" name="editAllowance"><i class="fas fa-money-check-alt"></i></button>
                 </form>
             </td>
 <?php
