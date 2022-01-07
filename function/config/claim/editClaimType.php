@@ -5,7 +5,7 @@
         $claimTypeName = filterInput($_POST['claimTypeName']);
         
         $sql = "SELECT claimName FROM claim_type";
-        if(check_exist($claimTypeName, $sql)) swal("Data Existed!", "The claim type \'' . $claimTypeName . '\' is already exist!", "warning");
+        if(check_exist($claimTypeName, $sql)) swal("Data Existed!", "The claim type \'" . $claimTypeName . "\' is already exist!", "warning");
         else {
             $sql = "UPDATE claim_type SET claimName = '$claimTypeName' WHERE claimTypeId = '$id'";
             swal_result($sql, "Edit Claim Type", "The claim type \'" . $claimTypeNameOld . "\' has been changed to \'" . $claimTypeName . "\'", "");
