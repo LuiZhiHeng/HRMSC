@@ -31,7 +31,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="modalForm" action="login.php" method="POST" onsubmit="return confirms('reset password?')">
+                    <form id="modalForm" action="login.php" method="POST" onsubmit="return confirms('reset password')">
                         <label for="email">Email Address:</label>
                         <input type="email" id="email" class="form-control mb-2" name="email">
                         <input type="submit" class="btn btn-danger form-control" name="reset" value="Done">
