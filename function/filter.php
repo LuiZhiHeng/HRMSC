@@ -36,4 +36,9 @@ function echo_td($txt){
     $txt = filterOutput($txt);
     echo "<td>" . $txt . "</td>";
 }
+
+function echo_td_pre($txt){
+    $txt = filterOutput($txt);
+    echo "<td><pre>" . $txt . "</pre></td>";
+}
 ?>
