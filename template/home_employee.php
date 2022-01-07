@@ -13,7 +13,7 @@
         set_h1("Claim Request"); 
         show_request("Approved", "claim.php", "<i class='fas fa-coins'></i>", "success", "SELECT count(*) FROM claim_request WHERE claimStatus=1 AND employeeId='$uId'");
         show_request("Pending", "claim.php", "<i class='fas fa-coins'></i>", "warning", "SELECT count(*) FROM claim_request WHERE claimStatus=3 AND employeeId='$uId'");
-        show_request("Rejected", "claim.php", "<i class='fas fa-coins'></i>", "danger", "SELECT count(*) FROM claim_request WHERE claimStatus=1 AND employeeId='$uId'");
+        show_request("Rejected", "claim.php", "<i class='fas fa-coins'></i>", "danger", "SELECT count(*) FROM claim_request WHERE claimStatus=2 AND employeeId='$uId'");
     ?>
 </div>
 <?php
