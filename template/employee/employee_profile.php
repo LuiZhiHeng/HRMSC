@@ -22,11 +22,7 @@ if(isset($_SESSION['employee'])){
                         <legend class="text-center bg-secondary text-light p-1">-- Personal Info --</legend>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <label for="emId" class="form-label">Employee ID</label>
-                    <input type="text" class="form-control" name="emId" id="emId" value="<?= echo_txt($dataEm['employeeId']) ?>" disabled>
-                </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-6 col-md-12">
                     <label for="name" class="form-label">Name</label>
                     <input type="text" class="form-control" name="name" id="name" value="<?= echo_txt($dataEm['employeeName']) ?>" disabled>
                 </div>
@@ -109,7 +105,7 @@ if(isset($_SESSION['employee'])){
                     <label for="eis" class="form-label">EIS ID</label>
                     <input type="text" class="form-control mb-2" name="eis" id="eis" value="<?= echo_txt($dataEm['eisAcc']) ?>" disabled>
                     <label for="pcb" class="form-label">PCB ID</label>
-                    <input type="text" class="form-control mb-2" name="pcb" id="pcb" value="<?= echo_txt($dataEm['pcbAcc']) ?>" required>
+                    <input type="text" class="form-control mb-2" name="pcb" id="pcb" value="<?= echo_txt($dataEm['pcbAcc']) ?>" disabled>
                 </div>
             </div>
         </div>
