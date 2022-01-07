@@ -56,20 +56,18 @@
             if($numPeopleJobTaken < $data[8]){
                 echo "<tr>";
                 echo_td(++$countNum);
-                for ($j=1; $j < count($data)-1; $j++) {
-                    if($j == 4){
-                        $tempWorkDay = str_split($data[$j]);
-                        echo_tag("td", 0);
-                        for ($wd=0; $wd < count($tempWorkDay); $wd++) { 
-                            echo_txt($tempWorkDay[$wd]);
-                            if($wd != count($tempWorkDay)-1) echo ", ";
-                        }
-                        echo_tag("td", 1);
-                    } elseif($j == 5) echo "<td>" .filterOutput($data[$j]) . " - ";
-                    elseif($j == 6) echo filterOutput($data[$j]) . "</td>";
-                    elseif($j == 7) echo_td("RM " . $data[$j]);
-                    else echo_td($data[$j]);
+                echo_td_pre($data[1]);
+                echo_td_pre($data[2]);
+                echo_td_pre($data[3]);
+                $tempWorkDay = str_split($data[4]);
+                echo "<td>";
+                for ($wd=0; $wd < count($tempWorkDay); $wd++) { 
+                    echo $tempWorkDay[$wd];
+                    if($wd != count($tempWorkDay)-1) echo ", ";
                 }
+                echo "</td>";
+                echo_td_pre($data[5] . " - " . $data[6]);
+                echo_td("RM " . $data[7]);
 
                 $sqlAllow = "SELECT * FROM allowance JOIN allowance_type ON allowance_type.allowanceTypeId = allowance.allowanceTypeId WHERE allowance.recruitmentId = '$data[0]'";
                 $rsAllow = $conn->query($sqlAllow);
@@ -85,7 +83,7 @@
                         $allowName .= ", ";
                         $allowAmount .= ", ";
                     } else {
-                        echo_td($allowName);
+                        echo_td_pre($allowName);
                         echo_td($allowAmount);
                     }
                 }
