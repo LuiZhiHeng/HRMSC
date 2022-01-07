@@ -52,12 +52,12 @@
 ?>
             <td>
                 <form class="me-1" style="display: inline-block">
-                    <input type="button" value="Manage Cheque" class="btn btn-success mb-1 form-control" data-bs-toggle="modal" data-bs-target="#fileModal" data-bs-id="<?= $data[0] ?>" data-bs-cheque="<?= $data[5] ?>">
+                    <button type="button" value="Manage Cheque" class="btn btn-success mb-1 form-control" data-bs-toggle="modal" data-bs-target="#fileModal" data-bs-id="<?= $data[0] ?>" data-bs-cheque="<?= $data[5] ?>"><i class="fas fa-money-check"></i></button>
                 </form>
                 <form class="me-1" style="display: inline-block" action="payroll.php" method="POST" target="_blank">
                     <input type="hidden" name="pId" value="<?= $data[0] ?>" hidden>
                     <input type="hidden" name="uId" value="<?= $data[1] ?>" hidden>
-                    <input class="btn btn-primary mb-1 form-control" type="submit" name="view" value="View">
+                    <button class="btn btn-primary mb-1 form-control" type="submit" name="view" value="View"><i class="fas fa-eye"></i></button>
                 </form> 
             </td>
 <?php
