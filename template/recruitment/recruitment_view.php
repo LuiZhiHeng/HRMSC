@@ -22,7 +22,6 @@
                     <th>Working Time</th>
                     <th>Salary</th>
                     <th>Allowance</th>
-                    <th>Allowance Amount</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -70,21 +69,13 @@
                 $sqlAllow = "SELECT * FROM allowance JOIN allowance_type ON allowance_type.allowanceTypeId = allowance.allowanceTypeId WHERE allowance.recruitmentId = '$data[0]'";
                 $rsAllow = $conn->query($sqlAllow);
                 
-                $allowName = $allowAmount = "";
-                for ($j=0; $j < $rsAllow->num_rows; $j++) { 
+                for ($j=0, $allow_temp = ""; $j < $rsAllow->num_rows; $j++) { 
                     $dataAllow = $rsAllow->fetch_assoc();
-                    
-                    $allowName .= $dataAllow['allowanceName'];
-                    $allowAmount .= $dataAllow['allowanceAmount'];
-                    
-                    if($j != $rsAllow->num_rows - 1){
-                        $allowName .= ", ";
-                        $allowAmount .= ", ";
-                    } else {
-                        echo_td_pre($allowName);
-                        echo_td($allowAmount);
-                    }
+                    $allowName = $dataAllow['allowanceName'];
+                    $allowAmount = $dataAllow['allowanceAmount'];
+                    $allow_temp .= "-" . $allowName . " (RM" . $allowAmount. ")" . "\n";
                 }
+                echo_td_pre($allow_temp);
 ?>
             <td>
                 <form action="recruitment.php" method="GET">
