@@ -1,5 +1,8 @@
 <div class="row form-inline mb-2">
-    <form action="attendance.php" method="GET">
+    <form>
+        <a href="attendance.php?punch=" type="button" class="btn btn-danger me-1 float-start">
+            Punch
+        </a>
         <button type="button" class="btn btn-dark me-1 float-end" data-bs-toggle="modal" data-bs-target="#viewModal">
             Check Monthly Attendance
         </button>
