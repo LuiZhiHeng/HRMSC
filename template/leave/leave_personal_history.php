@@ -1,9 +1,3 @@
-<div class="col-12 mb-2">
-    <form action="leave.php" method="GET">
-        <button type="submit" class="btn btn-dark" name="record">View Record</button>
-        <button type="submit" class="btn btn-danger" name="apply">Apply Leave</button>
-    </form>
-</div>
 <div class="card mb-4">
     <div class="card-header">
         <i class="fas fa-table me-1"></i>

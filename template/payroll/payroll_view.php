@@ -1,8 +1,3 @@
-<div class="row form-inline mb-2">
-    <form action="payroll.php" method="POST">
-        <a href="payroll.php" class="btn btn-dark">Payroll History</a>
-    </form>
-</div>
 <div class="card mb-4">
     <div class="card-header">
         <i class="fas fa-table me-1"></i>
