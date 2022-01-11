@@ -13,7 +13,6 @@ if(isset($_SESSION['employee'])){
 } elseif(isset($_SESSION['admin'])) {
 
     $arrPermission = [];
-    $invalid = 0;
     $rsPermission = $conn->query("SELECT * FROM permission");
     if($rsPermission->num_rows >= 0){
         for ($i=0; $i < $rsPermission->num_rows; $i++) { 
@@ -155,6 +154,10 @@ if(isset($_SESSION['employee'])){
             include('template/config/status_view.php');
         } else noPermission();
 
+    } else {
+        set_h1("Setting");
+        breadcrumb(0, "Setting");
+        include("template/config/setting_list.php");
     }
 }
 
