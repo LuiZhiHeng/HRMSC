@@ -1,8 +1,3 @@
-<div class="row form-inline mb-2">
-    <form action="claim.php" method="GET">
-        <button type="submit" class="btn btn-dark" name="view">View Request</button>
-    </form>
-</div>
 <div class="card mb-4">
     <div class="card-header">
         <i class="fas fa-table me-1"></i>
