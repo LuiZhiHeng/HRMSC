@@ -18,6 +18,27 @@ function start_HTML_header($title){
             .swal-modal .swal-text {
                 text-align: center !important;
             }
+
+            ul#setting_list {
+                list-style: none;
+                margin-left: 0;
+                padding-left: 0;
+            }
+
+            ul#setting_list li {
+                text-indent: -1em;
+                padding-left: 1em;
+                margin-bottom: 0.5em;
+            }
+
+            ul#setting_list li:before {
+                content: "➤ ";
+                padding-right: 5px;
+            }
+
+            ul#setting_list li a {
+                text-decoration: none;
+            }
         </style>
     </head>
 <?php
