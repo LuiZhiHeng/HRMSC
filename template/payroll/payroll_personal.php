@@ -48,7 +48,7 @@
             }
 ?>
             <td>
-                <form action="payroll.php" method="POST" target="_blank">
+                <form action="payroll.php" method="POST">
                     <input type="hidden" name="pId" value="<?= $data[0] ?>" hidden>
                     <input type="hidden" name="uId" value="<?= $data[1] ?>" hidden>
                     <button class="btn btn-primary mb-1" type="submit" name="view">View </button>
