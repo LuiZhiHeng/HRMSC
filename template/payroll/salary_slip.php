@@ -21,6 +21,7 @@ if($rs->num_rows > 0){
     $monthSelected = $data['month'];
     $yearSelected = $data['year'];
     set_h1("Salary Slip  - " . $data['employeeName'] . " (" . $monthSelected . "/" . $yearSelected . ")");
+    breadcrumb(array("Payroll" => "payroll.php"), "Salary Slip");
     $arrPayroll = create_payroll($monthSelected, $yearSelected, $uId);
     $countArr = 0;
 ?>

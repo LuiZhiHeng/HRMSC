@@ -8,10 +8,12 @@ if(isset($_SESSION['admin'])){
 
     if(isset($_GET['history'])){
         set_h1('Claim History');
+        breadcrumb(array("Claim" => "claim.php"), "History");
         include('template/claim/claim_history.php');
 
     } else { //view request
         set_h1("Claim Request");
+        breadcrumb(0, "Claim");
         include('template/claim/claim_request.php');
     }
 } elseif($_SESSION['employee']) {
@@ -21,14 +23,17 @@ if(isset($_SESSION['admin'])){
 
     if(isset($_GET['apply'])){
         set_h1("Apply Claim");
+        breadcrumb(array("Claim" => "claim.php"), "Apply");
         include('template/claim/claim_apply.php');
      
     } elseif(isset($_GET['history'])) {
         set_h1('Claim History');
+        breadcrumb(array("Claim" => "claim.php"), "History");
         include('template/claim/claim_personal_history.php');
    
     } else {
         set_h1('Claim Record');
+        breadcrumb(0, "Claim");
         include('template/claim/claim_personal.php');
     }
 }

@@ -4,7 +4,8 @@ if(isset($_GET['id'])){
     $rsRe = $conn->query("SELECT position FROM recruitment WHERE recruitmentId = '$id'");
     $reName = $rsRe->fetch_array(MYSQLI_NUM);
     if($reName){
-        set_h1("Edit Recruitment <small>(" . $reName[0] . ")    </small>");
+        set_h1("Edit Allowance <small>(" . $reName[0] . ")    </small>");
+        breadcrumb(array("Recruitment" => "recruitment.php"), "Allowance");
 ?>
 <div class="row mb-2 form-inline">
     <form>

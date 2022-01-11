@@ -7,6 +7,7 @@ if(isset($_SESSION['employee'])){
 
     if(isset($_GET['changePass'])){
         set_h1("Change Password");
+        breadcrumb(0, "Setting");
         include('template/change_password.php');
     }
 } elseif(isset($_SESSION['admin'])) {
@@ -24,7 +25,8 @@ if(isset($_SESSION['employee'])){
     if(isset($_GET['changePass'])){
         require_once('function/changePassword.php');
         
-        set_h1("Change Password");        
+        set_h1("Change Password");
+        breadcrumb(array("Setting" => "setting.php"), "Change Password");
         include('template/change_password.php');
 
     } elseif(isset($_GET['permission'])){
@@ -32,6 +34,7 @@ if(isset($_SESSION['employee'])){
             require_once('function/config/editPermission.php');
             
             set_h1("Manage Permission");
+            breadcrumb(array("Setting" => "setting.php"), "Permission");
             include('template/config/permission.php');
         } else noPermission();
 
@@ -40,7 +43,8 @@ if(isset($_SESSION['employee'])){
             require_once('function/config/allowance/addAllowance.php');
             require_once('function/config/allowance/editAllowance.php');
         
-            set_h1("Allowance List");        
+            set_h1("Allowance List");
+            breadcrumb(array("Setting" => "setting.php"), "Allowance");
             include('template/config/allowance_view.php');
         } else noPermission();
 
@@ -50,6 +54,7 @@ if(isset($_SESSION['employee'])){
             require_once('function/config/claim/editClaimType.php');
 
             set_h1("Claim Type");
+            breadcrumb(array("Setting" => "setting.php"), "Claim");
             include('template/config/claim_type_view.php');
         } else noPermission();
 
@@ -57,6 +62,7 @@ if(isset($_SESSION['employee'])){
         if($logged_user_id <= $arrPermission[2]){
             if($_GET['holiday'] == "history"){
                 set_h1("Public Holiday History");
+                breadcrumb(array("Setting" => "setting.php", "Holiday" => "setting.php?holiday="), "History");
                 include('template/config/holiday_history.php');
             } else {
                 require_once('function/config/holiday/addHoliday.php');
@@ -64,6 +70,7 @@ if(isset($_SESSION['employee'])){
                 require_once('function/config/holiday/deleteHoliday.php');        
                 
                 set_h1("Public Holiday");
+                breadcrumb(array("Setting" => "setting.php"), "Holiday");
                 include('template/config/holiday_view.php');
             }
         } else noPermission();
@@ -74,6 +81,7 @@ if(isset($_SESSION['employee'])){
             require_once('function/config/leave/editLeaveRule.php');
 
             set_h1(isset($_GET['name']) ? "Leave Rule (" . filterOutput($_GET['name']) . ")" : "Leave Rule");
+            breadcrumb(array("Setting" => "setting.php", "Leave Type" => "setting.php?leave_type="), "Leave Rule");
             include('template/config/leave_rule_view.php');
         } else noPermission();
 
@@ -83,6 +91,7 @@ if(isset($_SESSION['employee'])){
             require_once('function/config/leave/editLeaveType.php');
         
             set_h1("Leave Type List");
+            breadcrumb(array("Setting" => "setting.php"), "Leave Type");
             include('template/config/leave_type_view.php');
         } else noPermission();
 
@@ -92,6 +101,7 @@ if(isset($_SESSION['employee'])){
             require_once('function/config/overtime/editOvertimeRule.php');
         
             set_h1(isset($_GET['name']) ? "Overtime Rule (" . filterOutput($_GET['name']) . ")" : "Overtime Rule");
+            breadcrumb(array("Setting" => "setting.php", "Overtime Type" => "setting.php?overtime_type="), "Overtime Rule");
             include('template/config/overtime_rule_view.php');
         } else noPermission();
 
@@ -101,6 +111,7 @@ if(isset($_SESSION['employee'])){
             require_once('function/config/overtime/editOvertimeType.php');
     
             set_h1("Overtime List");
+            breadcrumb(array("Setting" => "setting.php"), "Overtime Type");
             include('template/config/overtime_type_view.php');
         } else noPermission();
 
@@ -110,6 +121,7 @@ if(isset($_SESSION['employee'])){
             require_once('function/config/payroll/editPayrollType.php');
     
             set_h1("Payroll Type List");
+            breadcrumb(array("Setting" => "setting.php"), "Payroll Type");
             include('template/config/payroll_type_view.php');
         } else noPermission();
 
@@ -119,6 +131,7 @@ if(isset($_SESSION['employee'])){
             require_once('function/config/payroll/editPayrollRule.php');
     
             set_h1(isset($_GET['name']) ? "Payroll Rule (" . filterOutput($_GET['name']) . ")" : "Payroll Rule");
+            breadcrumb(array("Setting" => "setting.php", "Payroll Type" => "setting.php?payroll_type="), "Overtime Rule");
             include('template/config/payroll_rule_view.php');
         } else noPermission();
 
@@ -128,6 +141,7 @@ if(isset($_SESSION['employee'])){
             require_once('function/config/state/editState.php');
         
             set_h1("State List");
+            breadcrumb(array("Setting" => "setting.php"), "State");
             include('template/config/state_view.php');
         } else noPermission();
 
@@ -137,6 +151,7 @@ if(isset($_SESSION['employee'])){
             require_once('function/config/status/editStatus.php');
         
             set_h1("Status List");
+            breadcrumb(array("Setting" => "setting.php"), "Status");
             include('template/config/status_view.php');
         } else noPermission();
 

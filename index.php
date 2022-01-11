@@ -4,6 +4,7 @@ start_HTML_header("Home");
 
 if(isset($_SESSION['admin'])){
     set_h1("Home");
+    breadcrumb(0, "Dashboard");
     include('template/home_admin.php');
 
 } elseif (isset($_SESSION['employee'])){

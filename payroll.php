@@ -15,15 +15,18 @@ if(isset($_POST['uId']) && isset($_POST['pId']) && isset($_POST['view']) && ( is
         $monthSelected = filterInput($_GET['month']);
         $yearSelected = filterInput($_GET['year']);
         set_h1("Payroll (" . $monthSelected . "/" . $yearSelected . ")");
+        breadcrumb(array("Payroll" => "payroll.php"), "View");
         include('template/payroll/payroll_view.php');
 
     } else { // view
         set_h1("Payroll History");
+        breadcrumb(0, "Payroll");
         include('template/payroll/payroll_history.php');
         
     }
 } elseif(isset($_SESSION['employee'])) {
     set_h1("Payroll");
+    breadcrumb(0, "Payroll");
     include('template/payroll/payroll_personal.php');
 
 }

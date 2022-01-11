@@ -12,6 +12,7 @@ if (isset($_SESSION['admin'])){
     
     if (isset($_GET['add'])){
         set_h1("Add Recruitment");
+        breadcrumb(array("Recruitment" => "recruitment.php"), "Add");
         include('template/recruitment/recruitment_add.php');
     
     } elseif (isset($_GET['editAllowance']) && isset($_GET['id']) ){
@@ -19,14 +20,17 @@ if (isset($_SESSION['admin'])){
         
     } elseif (isset($_GET['edit']) && isset($_GET['id']) ){
         set_h1("Edit Recruitment");
+        breadcrumb(array("Recruitment" => "recruitment.php"), "Edit");
         include('template/recruitment/recruitment_edit.php');
         
     } elseif(isset($_GET['history'])) {
         set_h1("Recruitment History");
+        breadcrumb(array("Recruitment" => "recruitment.php"), "History");
         include('template/recruitment/recruitment_history.php');
 
     } else { //view
         set_h1("Recruitment");
+        breadcrumb(0, "Recruitment");
         include('template/recruitment/recruitment_view.php');
     }
 } else {

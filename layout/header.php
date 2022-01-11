@@ -28,4 +28,23 @@ function set_h1($title){
     echo '<h1 class="mt-4 d-print-none">' . $title . '</h1><hr class="d-print-none">';
 }
 
+function breadcrumb($arr, $current){
+?>
+    <nav class="ps-3 d-print-none" style="--bs-breadcrumb-divider: '/';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a class="text-decoration-none" href="../hrmsc">Home</a>
+            </li>
+            <?php if($arr != 0){ foreach ($arr as $name => $location){ ?>
+                <li class="breadcrumb-item">
+                    <a class="text-decoration-none" href="<?= $location; ?>"><?= $name; ?></a>
+                </li>
+            <?php }} ?>
+            <li class="breadcrumb-item active" aria-current="page"><?= $current; ?></li>
+        </ol>
+    </nav>
+    <hr class="d-print-none">
+<?php
+}
+
 ?>
