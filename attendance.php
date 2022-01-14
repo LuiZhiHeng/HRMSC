@@ -16,7 +16,7 @@ if(isset($_SESSION['admin'])){
     } else { //view
         require_once("function/attendance/addAttendance.php");
 
-        set_h1("Attendance Record <small>(" . display_date() . ")</small>");
+        set_h1("Attendance Record <small>(" . ((isset($_GET['date']) && strtotime($_GET['date'])) ? $_GET['date'] : display_date()) . ")</small>");
         breadcrumb(0, "Attendance");
         include('template/attendance/attendance_view.php');
 

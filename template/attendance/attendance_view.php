@@ -7,6 +7,9 @@
         <button type="button" class="btn btn-dark me-1 float-end" data-bs-toggle="modal" data-bs-target="#viewModal">
             Check Monthly Attendance
         </button>
+        <button type="button" class="btn btn-dark me-1 float-end" data-bs-toggle="modal" data-bs-target="#dailyModal">
+            Check Daily Attendance
+        </button>
         <a href="attendance.php?qr=" class="btn btn-primary me-1 float-end">
             <i class="fas fa-qrcode"></i>
             QR Code
@@ -35,11 +38,9 @@
     //get employee who work today
     $arrAtt = [[]]; // 0-id 1-name 2-leaveYN 3-in 4-out
     $arrAttLen = 0;
-    $dateNow = get_date_now();
-    // $dateNow = "2021-12-13"; #test purpose only
-    $dayNow = date('w');
+    $dateNow = (isset($_GET['date']) && strtotime($_GET['date'])) ? $_GET['date'] : get_date_now();
+    $dayNow = date('w', strtotime($dateNow));
     if($dayNow == 0) $dayNow += 7;
-    // $dayNow = 1; #test purpose only
     $sql = "SELECT employee.employeeId, employee.employeeName FROM recruitment 
             JOIN employee ON employee.recruitmentId = recruitment.recruitmentId 
             WHERE employee.startWorkDate <= '$dateNow' AND recruitment.workDay LIKE '%$dayNow%'
@@ -58,8 +59,7 @@
 
     //get leave record
     $nowDT1 = $dateNow . " 00:00:00";
-    $nowDT2 = date("Y-m-") . (date("d")) . " 11:59:59";
-    // $nowDT2 = "2021-12-13 11:59:59"; #test purpose only
+    $nowDT2 = $dateNow . " 11:59:59";
     $sql = "SELECT employee.employeeId FROM leave_request
             JOIN employee ON leave_request.employeeId = employee.employeeId
             WHERE startLeaveDateTime >= '$nowDT1' AND endLeaveDateTime <= '$nowDT2'
@@ -199,6 +199,26 @@
                     <label for="check-out">Check-Out Time: <span id="outYN"></span></label>
                     <input type="time" class="form-control mb-2" id="check-out" name="check-out" required>
                     <button type="submit" class="form-control btn btn-danger" name="addAtt">Update Attendance</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="dailyModal" tabindex="-1" aria-labelledby="dailyModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="title" class="modal-title">View Daily Attendance</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="attendance.php" method="GET">
+                    <label for="date">Date:</label>
+                    <input type="date" class="form-control mb-2" id="date" name="date" required>
+                    <button type="submit" class="btn btn-danger form-control">
+                        View History
+                    </button>
                 </form>
             </div>
         </div>
