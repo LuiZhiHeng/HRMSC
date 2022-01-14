@@ -71,7 +71,17 @@
                     $allow_temp .= "-" . $allowName . " (RM" . $allowAmount. ")" . "\n";
                 }
                 echo_td_pre($allow_temp);
-
+                if(get_logged_user_type() == 1 && get_logged_user_id() == 1){
+                    ?>
+                        <td>
+                            <form action="recruitment.php" method="GET">
+                                <input type="hidden" name="id" value="<?= $data[1] ?>" hidden>
+                                <button class="btn btn-success form-control mb-1" type="submit" name="edit"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-warning form-control mb-1 text-white" type="submit" name="editAllowance"><i class="fas fa-money-check-alt"></i></button>
+                            </form>
+                        </td>
+                    <?php
+                }
                 echo "</tr>";
             }
         }
