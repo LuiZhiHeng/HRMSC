@@ -47,7 +47,7 @@ if(isset($_GET['id'])){
                             <i class="fas fa-edit"></i> Edit
                         </button>
                     </form>
-                    <form style="display: inline-block" action="recruitment.php?id=<?= $id; ?>&editAllowance=" method="POST"  onsubmit="return confirms('Delete ALlowance')">
+                    <form style="display: inline-block" action="recruitment.php?id=<?= $id; ?>&editAllowance=" method="POST"  onsubmit="return confirms('Delete Allowance')">
                         <input type="hidden" name="id" value="<?= $data['allowanceId'] ?>" hidden>
                         <button type="submit" class="btn btn-secondary text-light" name="delete">
                             <i class="fas fa-trash"></i> Delete
