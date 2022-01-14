@@ -91,7 +91,6 @@
                     $arrAtt[$j][3] = $data[3]; //inDT
                     $arrAtt[$j][4] = $data[4]; //outDT
                     if(!isset($arrAtt[$j][2])) $arrAtt[$j][2] = 0; //leaveYN
-                    $arrAttLen++;
                     break;
                 } elseif($j == $arrAttLen-1){ //ot
                     $arrAtt[$arrAttLen][0] = $data[1]; //id
@@ -126,7 +125,7 @@
         elseif(isset($arrAtt[$i][4]) && $arrAtt[$i][2] == 0) echo "<td class='text-center text-success fw-bold'>Punched Out</td>";
         elseif(isset($arrAtt[$i][4]) && $arrAtt[$i][2] == 2) echo "<td class='text-center text-success fw-bold'>OT Punched Out</td>";
         elseif(isset($arrAtt[$i][3]) && $arrAtt[$i][2] == 0) echo "<td class='text-center text-warning fw-bold'>Punched In</td>";
-        elseif(isset($arrAtt[$i][4]) && $arrAtt[$i][2] == 2) echo "<td class='text-center text-success fw-bold'>OT Punched In</td>";
+        elseif(isset($arrAtt[$i][3]) && $arrAtt[$i][2] == 2) echo "<td class='text-center text-success fw-bold'>OT Punched In</td>";
         else echo "<td class='text-center text-danger fw-bold'>Absent</td>";
 
         echo "</tr>";
