@@ -39,7 +39,7 @@
             JOIN claim_type ON claim_type.claimTypeId = claim_request.claimTypeId
             JOIN status_type ON status_type.statusTypeId = claim_request.claimStatus
             JOIN employee ON employee.employeeId = claim_request.employeeId
-            WHERE claim_request.claimStatus = 2 OR claim_request.claimStatus = 5 OR claim_request.claimStatus = 6 AND claim_request.employeeId = $uId";
+            WHERE claim_request.claimStatus = 2 OR claim_request.claimStatus = 5 OR claim_request.claimStatus = 6";
     $rs = $conn->query($sql);
     if($rs->num_rows > 0) {
         for ($i=0; $i < $rs->num_rows; $i++) { 
