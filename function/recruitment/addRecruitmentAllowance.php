@@ -5,7 +5,7 @@
         $allowanceAmount = filterInput($_POST['allowanceAmount']);
 
         $sql = "SELECT allowanceTypeId FROM allowance WHERE recruitmentId = '$id'";
-        if(check_exist($allowanceName, $sql)) swal("Data Existed!", "", "warning");
+        if(check_exist($allowance, $sql)) swal("Data Existed!", "", "warning");
         else {
             $sql = "INSERT INTO allowance VALUES (NULL, '$id', '$allowance', '$allowanceAmount')";
             swal_result($sql, "Add Allowance", "", "");
