@@ -113,8 +113,9 @@
                     <?php
                         $rs = $conn->query("SELECT recruitmentId, position FROM recruitment");
                         for ($i=0; $i < $rs->num_rows; $i++) {
-                            $job = $rs->fetch_assoc();
-                            echo '<option value="' . filterOutput($job['recruitmentId']) . '">' . filterOutput($job['position']) . '</option>';
+                            $job = $rs->fetch_array(MYSQLI_NUM);
+                            $numPeopleJobTaken = $conn->query("SELECT employeeId FROM employee WHERE recruitmentId='$job[0]'")->num_rows;
+                            if($numPeopleJobTaken < $job[0]) echo '<option value="' . filterOutput($job[0]) . '">' . filterOutput($job[1]) . '</option>';
                         }
                     ?>
                 </select>
