@@ -27,11 +27,11 @@
         <div class="row g-3 mb-3 d-flex justify-content-center">
             <div class="col-lg-3 col-md-6">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" name="email" id="email" required>
+                <input type="email" class="form-control" name="email" id="email" placeholder="example@example.com" required>
             </div>
             <div class="col-lg-3 col-md-6">
                 <label for="phone" class="form-label">Phone</label>
-                <input type="tel" class="form-control" name="phone" id="phone" required>
+                <input type="tel" class="form-control" name="phone" id="phone" placeholder="012-3456789" required>
             </div>
         </div>
         <div class="row g-3 mb-3 d-flex justify-content-center">
@@ -92,13 +92,13 @@
         <div class="row g-3 mb-3 d-flex justify-content-center">
             <div class="col-lg-6 col-md-12">
                 <label for="epf" class="form-label">EPF ID</label>
-                <input type="text" class="form-control mb-2" name="epf" id="epf" required>
+                <input type="text" class="form-control mb-2" name="epf" id="epf" placeholder="XXXXX12345670001234567" required>
                 <label for="socso" class="form-label">SOCSO ID</label>
-                <input type="text" class="form-control mb-2" name="socso" id="socso" required>
+                <input type="text" class="form-control mb-2" name="socso" id="socso" placeholder="X1234567890X" required>
                 <label for="eis" class="form-label">EIS ID</label>
-                <input type="text" class="form-control mb-2" name="eis" id="eis" required>
+                <input type="text" class="form-control mb-2" name="eis" id="eis" placeholder="X1234567890X"  required>
                 <label for="pcb" class="form-label">PCB ID</label>
-                <input type="text" class="form-control mb-2" name="pcb" id="pcb" required>
+                <input type="text" class="form-control mb-2" name="pcb" id="pcb" placeholder="X123456789"  required>
             </div>
         </div>
         <div class="row g-3 mb-3 d-flex justify-content-center">
